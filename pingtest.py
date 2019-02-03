@@ -1,8 +1,6 @@
 import time
 import random
 
-from math import nan
-
 from ping import tcpping
 from ping import icmpping
 from log import logging
@@ -28,7 +26,7 @@ def pingtest(interval: float, batchnum: int, timeout: float, proto: str, addr: s
         resnum = len(res)
 
         if resnum == 0:
-            return (nan, nan, nan, nan)
+            return (0, 0, 0, 0)
 
         ressum = sum(res)
         resavg = ressum / resnum
@@ -39,7 +37,7 @@ def pingtest(interval: float, batchnum: int, timeout: float, proto: str, addr: s
         return (resmin, resavg, resmax, res_stddev)
     except BaseException as e:
         logging.warning(e)
-        return (nan, nan, nan, nan)
+        return (0, 0, 0, 0)
 
 
 if __name__ == '__main__':
