@@ -47,14 +47,15 @@ class Monitor(object):
         prev_min = -1
         while True:
             now = datetime.datetime.now()
-            """if now.minute != prev_min and now.minute % 15 == 0:
+            if now.minute != prev_min and now.minute % 15 == 0:
                 self.run_test()
                 prev_min = now.minute
-            time.sleep(60)"""
+            time.sleep(60)
+            """
             if now.second != prev_min and now.second % 15 == 0:
                 self.run_test()
                 prev_min = now.second
-            time.sleep(0.1)
+            time.sleep(0.1)"""
 
 
 if __name__ == '__main__':
