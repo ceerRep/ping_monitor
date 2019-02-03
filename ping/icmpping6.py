@@ -47,7 +47,14 @@ def gen_packet(icmp_id: int, icmp_sq: int, pattern: bytes = b'MenciAKIOIsroMenci
 def send_one_ping(rawsocket: socket.socket, dst_addr: str, icmp_id: int, icmp_sq: int):
     packet = gen_packet(icmp_id, icmp_sq)
     send_time = time.time()
-    rawsocket.sendto(packet, (dst_addr, 59))
+
+    addrs = socket.getaddrinfo(dst_addr, 0, socket.AF_INET6, 0, socket.SOL_IP)
+    dest = None
+    for addr in addrs:
+        if addr[1] == socket.SOCK_RAW:
+            dest = addr[4]
+
+    rawsocket.sendto(packet, dest)
     return send_time, dst_addr
 
 
