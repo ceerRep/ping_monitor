@@ -3,16 +3,17 @@
 import threading
 
 from monitor import Monitor
-from webserver import WebServer
+from webserver import runServer
 
 import config
 
 if __name__ == "__main__":
     mon = Monitor(config.serverList, config.database_name)
-    server = WebServer('', 8080, 'time.db', config.serverList)
+
+    def server(): return runServer('0.0.0.0', 8080)
 
     thread_mon = threading.Thread(target=mon.loop)
-    thread_srv = threading.Thread(target=server.run)
+    thread_srv = threading.Thread(target=server)
 
     thread_mon.start()
     thread_srv.start()
