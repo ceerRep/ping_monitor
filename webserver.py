@@ -32,7 +32,7 @@ class WebServer(object):
                 data = db.query_between(
                     server[0], time.time() - 2 * 24 * 60 * 60, time.time())
                 dataset['%s <%s>' % (server[0], 'Private' if server[1] else server[3])] = [
-                    [time.asctime(time.localtime(row[0])), row[2]-row[4], row[2]+row[4], row[1], row[3]] for row in data]
+                    [time.asctime(time.localtime(row[0])), row[2]-row[4], row[2]+row[4], row[1], row[3], row[5]] for row in data]
             db.close()
 
             #start_response('200 OK', [('Content-Type', 'application/json')])

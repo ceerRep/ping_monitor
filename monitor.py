@@ -18,11 +18,11 @@ def doPingTestFor(lst_id: int, server_lst: list, dbname: str):
         begin_time = time.time()
         name, _, proto, addr, family = config.serverList[lst_id]
         logging.debug('Started ping test for ID#%d, name: %s' % (lst_id, name))
-        min_time, avg_time, max_time, std_dev = pingtest(
+        min_time, avg_time, max_time, std_dev, mid_time = pingtest(
             config.ping_interval, config.ping_batchnum, config.ping_timeout, proto, addr, family)
         db = database(dbname)
         db.insert_record(name, begin_time, min_time,
-                         avg_time, max_time, std_dev)
+                         avg_time, max_time, std_dev, mid_time)
         logging.debug('Ping test ended ID#%d, name: %s' % (lst_id, name))
     except BaseException as e:
         logging.error(e)

@@ -24,7 +24,7 @@ def pingtest(interval: float, batchnum: int, timeout: float, proto: str, addr: s
             time.sleep(interval)
 
         if len(res) == 0:
-            return (0, 0, 0, 0)
+            return (0, 0, 0, 0, 0)
 
         res.sort()
         if len(res) >= batchnum // 2:
@@ -32,17 +32,17 @@ def pingtest(interval: float, batchnum: int, timeout: float, proto: str, addr: s
 
         resnum = len(res)
 
-        # ressum = sum(res)
-        # resavg = ressum / resnum
-        resavg = res[resnum >> 1]
+        ressum = sum(res)
+        resavg = ressum / resnum
+        resmid = res[resnum >> 1]
         resmax = max(res)
         resmin = min(res)
         res_stddev = (sum([(x - resavg) ** 2 for x in res]) / resnum)**0.5
 
-        return (resmin, resavg, resmax, res_stddev)
+        return (resmin, resavg, resmax, res_stddev, resmid)
     except BaseException as e:
         logging.warning(e)
-        return (0, 0, 0, 0)
+        return (0, 0, 0, 0, 0)
 
 
 if __name__ == '__main__':
