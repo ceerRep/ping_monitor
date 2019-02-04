@@ -27,7 +27,8 @@ def pingtest(interval: float, batchnum: int, timeout: float, proto: str, addr: s
             return (0, 0, 0, 0)
 
         res.sort()
-        res = res[1:-1]
+        if len(res) >= batchnum // 2:
+            res = res[1:-1]
 
         resnum = len(res)
 
