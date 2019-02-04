@@ -56,7 +56,7 @@ class WebServer(object):
     def onError(self, errno: int, environ: dict, start_response, errinfo: str = ''):
         if errno == 404:
             start_response('404 Not Found', [('Content-Type', 'text/html')])
-            return [b'<b>404 Not Fount</b>']
+            return [b'<b>404 Not Found</b>']
 
     def application(self, environ: dict, start_response):
         if environ['PATH_INFO'] == '/':
