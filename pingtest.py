@@ -23,13 +23,17 @@ def pingtest(interval: float, batchnum: int, timeout: float, proto: str, addr: s
                 res.append(delay)
             time.sleep(interval)
 
-        resnum = len(res)
-
-        if resnum == 0:
+        if len(res) == 0:
             return (0, 0, 0, 0)
 
-        ressum = sum(res)
-        resavg = ressum / resnum
+        res.sort()
+        res = res[1:-1]
+
+        resnum = len(res)
+
+        # ressum = sum(res)
+        # resavg = ressum / resnum
+        resavg = res[resnum >> 1]
         resmax = max(res)
         resmin = min(res)
         res_stddev = (sum([(x - resavg) ** 2 for x in res]) / resnum)**0.5
